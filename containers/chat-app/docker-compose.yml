@@ -1,8 +1,5 @@
 version: '3'
 
-networks:
-  my-network:
-    driver: bridge 
 
 services:
   zookeeper:
@@ -16,7 +13,7 @@ services:
         reservations:
           memory: 256M
     networks:
-      - my-network
+      - int-network
 
   kafka:
     image: wurstmeister/kafka:latest
@@ -26,6 +23,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:90 
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_DEBUG: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
@@ -35,7 +33,7 @@ services:
         reservations:
           memory: 512M
     networks:
-      - my-network
+      - int-network
 
   producer-service:
     build: ./producer-service
@@ -50,7 +48,8 @@ services:
         reservations:
           memory: 256M
     networks:
-      - my-network
+      - int-network
+      - ext-network
 
   consumer-service:
     build: ./consumer-service
@@ -65,4 +64,12 @@ services:
         reservations:
           memory: 256M
     networks:
-      - my-network
+      - int-network
+      - ext-network
+
+networks:
+  int-network:
+    driver: bridge 
+    internal: true
+  ext-network:
+    driver: bridge 
