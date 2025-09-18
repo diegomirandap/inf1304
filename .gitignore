@@ -291,10 +291,8 @@ dkms.conf
 alomundo
 contadorErrado
 contadorCerto
-fibonacci
-fibonacci-threads
 outrastack
-parametro
+parametro 
 produtorConsumidor
 fibonacci-multit
 fibonacci-monot
