@@ -298,3 +298,6 @@ fibonacci-multit
 fibonacci-monot
 cria_processos
 cria_threads
+alocacao-v1
+alocacao-v2
+raceCondition
